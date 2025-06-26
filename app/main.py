@@ -18,27 +18,35 @@ def root():
 
 @app.get("/pharmacies/open", response_model=List[schemas.PharmacyOpenInfo])
 def get_open_pharmacies(
-    day: str = Query(..., example="Mon"),
-    time_str: str = Query(..., example="10:00"),
+    day: Optional[str] = Query(None, example="Mon"),
+    time: Optional[str] = Query(None, example="10:00"),
     db: Session = Depends(get_db)
 ):
-    try:
-        target_time = datetime.strptime(time_str, "%H:%M").time()
+    # Mon" → "Monday" 
+    if day:
         day = WEEKDAYS.get(day, day)
-    except Exception:
-        return []
 
-    result = (
-        db.query(models.Pharmacy, models.OpeningHour)
-        .join(models.OpeningHour)
-        .filter(
-            models.OpeningHour.day_of_week == day,
+    # string to time conversion
+    target_time = None
+    if time:
+        try:
+            target_time = datetime.strptime(time, "%H:%M").time()
+        except ValueError:
+            raise HTTPException(status_code=400, detail="Invalid time format")
+
+    query = db.query(models.Pharmacy, models.OpeningHour).join(models.OpeningHour)
+
+    # filter by day and time if provided
+    if day:
+        query = query.filter(models.OpeningHour.day_of_week == day)
+    if target_time:
+        query = query.filter(
             models.OpeningHour.open_time <= target_time,
             models.OpeningHour.close_time >= target_time
         )
-        .all()
-    )
-    # return result
+
+    result = query.all()
+
     return [
         schemas.PharmacyOpenInfo(
             id=pharmacy.id,
@@ -54,7 +62,7 @@ def get_open_pharmacies(
 @app.get("/pharmacies/{pharmacy_name}/masks", response_model=List[schemas.MaskSchema])
 def list_masks_by_pharmacy_name(
     pharmacy_name: str,
-    sort_by: Optional[str] = Query(None, enum=["name", "price"]),
+    sort_by: Optional[str] = Query("name", enum=["name", "price"]),
     order: Optional[str] = Query("asc", enum=["asc", "desc"]),
     db: Session = Depends(get_db)
 ):
@@ -115,7 +123,7 @@ def mask_count(
 
 @app.get("/users/top_users", response_model=List[schemas.UserWithTotalAmount])
 def get_top_users(
-    limit: int = Query(5, ge=1), # Minimum limit of 1, default to 5
+    top: int = Query(5, ge=1), # Minimum limit of 1, default to 5
     start_date: Optional[str] = None, # YYYY-MM-DD format
     end_date: Optional[str] = None, # YYYY-MM-DD format
     db: Session = Depends(get_db)
@@ -142,7 +150,7 @@ def get_top_users(
             raise HTTPException(status_code=400, detail="Invalid end_date format. Use YYYY-MM-DD.")
 
     # Order by total_amount descending and limit the results
-    query = query.order_by(func.sum(models.PurchaseHistory.transaction_amount).desc()).limit(limit)
+    query = query.order_by(func.sum(models.PurchaseHistory.transaction_amount).desc()).limit(top)
 
     result = query.all()
 
@@ -182,7 +190,6 @@ def get_transaction_summary(
         "total_amount": round(total_value, 2)
     }
 
-# 考慮加入更多東西
 @app.get("/search", response_model=List[schemas.SearchResult])
 def search_items(
     keyword: str = Query(..., min_length=1),
