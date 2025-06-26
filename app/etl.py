@@ -1,4 +1,4 @@
-import json
+import json, os
 from datetime import datetime
 from app.models import Pharmacy, Mask, OpeningHour, User, PurchaseHistory
 from app.database import SessionLocal, init_db
@@ -67,6 +67,8 @@ def load_users(json_path: str):
     db.close()
 
 def run_etl():
+    if os.path.exists("phantom_mask.db"):
+        os.remove("phantom_mask.db")
     init_db()
     load_pharmacies("data/pharmacies.json")
     load_users("data/users.json")
