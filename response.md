@@ -2,20 +2,20 @@
 > The Current content is an **example template**; please edit it to fit your style and content.
 ## A. Required Information
 ### A.1. Requirement Completion Rate
-- [x] List all pharmacies open at a specific time and on a day of the week if requested.
-  - Implemented at xxx API.
-- [x] List all masks sold by a given pharmacy, sorted by mask name or price.
-  - Implemented at xxx API.
-- [x] List all pharmacies with more or less than x mask products within a price range.
-  - Implemented at xxx API.
-- [x] The top x users by total transaction amount of masks within a date range.
-  - Implemented at xxx API.
-- [x] The total number of masks and dollar value of transactions within a date range.
-  - Implemented at xxx API.
-- [x] Search for pharmacies or masks by name, ranked by relevance to the search term.
-  - Implemented at xxx API.
-- [x] Process a user purchases a mask from a pharmacy, and handle all relevant data changes in an atomic transaction.
-  - Implemented at xxx API.
+- [o] List all pharmacies open at a specific time and on a day of the week if requested.
+  - Implemented at `GET /pharmacies/open?day={Mon|Tue|...|Sun}&time=HH:mm` API.
+- [o] List all masks sold by a given pharmacy, sorted by mask name or price.
+  - Implemented at `GET /pharmacies/{pharmacy_name}/masks?sort_by={name|price}&order={asc|desc}` API.
+- [o] List all pharmacies with more or less than x mask products within a price range.
+  - Implemented at `GET /pharmacies/mask_count?min_price={float}&max_price={float}&count={int}&op={gt|lt}` API.
+- [o] The top x users by total transaction amount of masks within a date range.
+  - Implemented at `GET /users/top_users?top={int}&start_date=YYYY-MM-DD&end_date=YYYY-MM-DD` API.
+- [o] The total number of masks and dollar value of transactions within a date range.
+  - Implemented at `GET /purchase/summary?start_date=YYYY-MM-DD&end_date=YYYY-MM-DD` API.
+- [o] Search for pharmacies or masks by name, ranked by relevance to the search term.
+  - Implemented at `GET /search?keyword={str}` API.
+- [o] Process a user purchases a mask from a pharmacy, and handle all relevant data changes in an atomic transaction.
+  - Implemented at `POST /purchase` API.
 ### A.2. API Document
 > Please describe how to use the API in the API documentation. You can edit by any format (e.g., Markdown or OpenAPI) or free tools (e.g., [hackMD](https://hackmd.io/), [postman](https://www.postman.com/), [google docs](https://docs.google.com/document/u/0/), or  [swagger](https://swagger.io/specification/)).
 
