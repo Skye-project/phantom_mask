@@ -46,18 +46,12 @@ open htmlcov/index.html
 ```
 
 ### B.2. Dockerized
-Please check my Dockerfile / docker-compose.yml at [here](#dockerized).
+Please check my [Dockerfile](aDockerfile) / [docker-compose.yml](docker-compose.yml).
 
 On the local machine, please follow the commands below to build it.
 
 ```bash
-$ docker build --build-arg ENV=development -p 80:3000 -t my-project:1.0.0 .  
-$ docker-compose up -d
-
-# go inside the container, run the migrate data command.
-$ docker exec -it my-project bash
-$ rake import_data:pharmacies[PATH_TO_FILE] 
-$ rake import_data:user[PATH_TO_FILE]
+$ docker-compose up --build
 ```
 
 ### B.3. Demo Site Url
