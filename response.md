@@ -17,9 +17,7 @@
 - [o] Process a user purchases a mask from a pharmacy, and handle all relevant data changes in an atomic transaction.
   - Implemented at `POST /purchase` API.
 ### A.2. API Document
-> Please describe how to use the API in the API documentation. You can edit by any format (e.g., Markdown or OpenAPI) or free tools (e.g., [hackMD](https://hackmd.io/), [postman](https://www.postman.com/), [google docs](https://docs.google.com/document/u/0/), or  [swagger](https://swagger.io/specification/)).
-
-Import [this](#api-document) json file to Postman.
+Import [this](#api-document.md) json file to Postman.
 
 ### A.3. Import Data Commands
 Please run these two script commands to migrate the data into the database.
