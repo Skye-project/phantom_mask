@@ -17,7 +17,7 @@
 - [o] Process a user purchases a mask from a pharmacy, and handle all relevant data changes in an atomic transaction.
   - Implemented at `POST /purchase` API.
 ### A.2. API Document
-Import [this](#api-document.md) json file to Postman.
+Import [this](api-document.md) json file to Postman.
 
 ### A.3. Import Data Commands
 Please run these two script commands to migrate the data into the database.
