@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  phantom-mask:
+    build:
+      context: .
+    container_name: phantom_mask
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONPATH=/app
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    depends_on:
+      - etl
+
+  etl:
+    build:
+      context: .
+    command: python3 -m app.etl
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONPATH=/app
