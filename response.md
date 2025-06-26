@@ -17,15 +17,15 @@
 - [o] Process a user purchases a mask from a pharmacy, and handle all relevant data changes in an atomic transaction.
   - Implemented at `POST /purchase` API.
 ### A.2. API Document
-Import [this](api-document.md) json file to Postman.
+Please read the API documentation [here](api-document.md)
 
 ### A.3. Import Data Commands
 Please run these two script commands to migrate the data into the database.
 
 ```bash
-$ rake import_data:pharmacies[PATH_TO_FILE]
-$ rake import_data:users[PATH_TO_FILE]
+python3 -m app.etl 
 ```
+
 ## B. Bonus Information
 
 >  If you completed the bonus requirements, please fill in your task below.
@@ -62,7 +62,7 @@ The demo site is ready on [my AWS demo site](#demo-site-url); you can try any AP
 
 ### C.1. ERD
 
-My ERD [erd-link](#erd-link).
+[My ERD](ERD.md).
 
 ### C.2. Technical Document
 
