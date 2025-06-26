@@ -18,8 +18,8 @@ def root():
 
 @app.get("/pharmacies/open", response_model=List[schemas.PharmacyOpenInfo])
 def get_open_pharmacies(
-    day: Optional[str] = Query(None, example="Mon"),
-    time: Optional[str] = Query(None, example="10:00"),
+    day: Optional[str] = Query(None, examples={"example": {"value": "Mon"}}),
+    time: Optional[str] = Query(None, examples={"example": {"value": "10:00"}}),
     db: Session = Depends(get_db)
 ):
     # Mon" → "Monday" 
@@ -89,7 +89,7 @@ def mask_count(
     min_price: float = Query(...),
     max_price: float = Query(...),
     count: int = Query(...),
-    op: str = Query(..., regex="^(gt|lt)$"),
+    op: str = Query(..., pattern="^(gt|lt)$"),
     db: Session = Depends(get_db)
 ):
     op_map = {
