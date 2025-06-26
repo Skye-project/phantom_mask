@@ -20,10 +20,15 @@
 Please read the API documentation [here](api-document.md)
 
 ### A.3. Import Data Commands
-Please run these two script commands to migrate the data into the database.
+Please run these two script commands.
 
 ```bash
-python3 -m app.etl 
+pip install -r requirements.txt
+
+python3 -m app.etl  # to migrate the data into the database.
+
+uvicorn app.main:app --reload
+
 ```
 
 ## B. Bonus Information
@@ -31,12 +36,13 @@ python3 -m app.etl
 >  If you completed the bonus requirements, please fill in your task below.
 ### B.1. Test Coverage Report
 
-I wrote down the 20 unit tests for the APIs I built. Please check the test coverage report at [here](#test-coverage-report).
-
-You can run the test script by using the command below:
+You can run the test script and check the test coverage report by using the command below:
 
 ```bash
-bundle exec rspec spec
+coverage run --source=app -m pytest
+coverage report 
+coverage html                  # Output htmlcov visualization page
+open htmlcov/index.html 
 ```
 
 ### B.2. Dockerized
@@ -65,7 +71,6 @@ The demo site is ready on [my AWS demo site](#demo-site-url); you can try any AP
 [My ERD](ERD.md).
 
 ### C.2. Technical Document
-
-For frontend programmer reading, please check this [technical document](technical-document) to know how to operate those APIs.
+Please read the API documentation [here](api-document.md)
 
 - --
