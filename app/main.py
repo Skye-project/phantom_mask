@@ -121,6 +121,13 @@ def mask_count(
 
     return result
 
+def validate_date_format(date_str: str) -> datetime:
+    try:
+        date = datetime.strptime(date_str, "%Y-%m-%d")
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid start_date format. Use YYYY-MM-DD.")
+    return date
+
 @app.get("/users/top_users", response_model=List[schemas.UserWithTotalAmount])
 def get_top_users(
     top: int = Query(5, ge=1), # Minimum limit of 1, default to 5
@@ -133,23 +140,14 @@ def get_top_users(
         func.sum(models.PurchaseHistory.transaction_amount).label("total_amount")
     ).join(models.PurchaseHistory).group_by(models.User.id)
 
-    # if start_date, end_date are provided, filter the query
     if start_date:
-        try:
-            start = datetime.strptime(start_date, "%Y-%m-%d")
-            query = query.filter(models.PurchaseHistory.transaction_date >= start)
-        except ValueError:
-            raise HTTPException(status_code=400, detail="Invalid start_date format. Use YYYY-MM-DD.")
+        start = validate_date_format(start_date)
+        query = query.filter(models.PurchaseHistory.transaction_date >= start)
 
     if end_date:
-        try: 
-            # Convert end_date to datetime and adjust to the end of the day
-            end = datetime.strptime(end_date, "%Y-%m-%d") + timedelta(days=1) - timedelta(seconds=1)
-            query = query.filter(models.PurchaseHistory.transaction_date <= end)
-        except ValueError:
-            raise HTTPException(status_code=400, detail="Invalid end_date format. Use YYYY-MM-DD.")
-
-    # Order by total_amount descending and limit the results
+        end = validate_date_format(end_date) + timedelta(days=1) - timedelta(seconds=1)
+        query = query.filter(models.PurchaseHistory.transaction_date <= end)
+        
     query = query.order_by(func.sum(models.PurchaseHistory.transaction_amount).desc()).limit(top)
 
     result = query.all()
@@ -167,19 +165,18 @@ def get_top_users(
 
 @app.get("/transactions/summary")
 def get_transaction_summary(
-    start_date: Optional[str] = None,
-    end_date: Optional[str] = None,
+    start_date: Optional[str] = None, # YYYY-MM-DD format
+    end_date: Optional[str] = None, # YYYY-MM-DD format
     db: Session = Depends(get_db)
 ):
     query = db.query(models.PurchaseHistory)
 
-    # If start_date or end_date are provided, filter the query
-    # if start_date and end_date are not provided, return all transactions
     if start_date:
-        query = query.filter(models.PurchaseHistory.transaction_date >= start_date)
+        start = validate_date_format(start_date)
+        query = query.filter(models.PurchaseHistory.transaction_date >= start)
+
     if end_date:
-        # Convert end_date to datetime and adjust to the end of the day
-        end = datetime.strptime(end_date, "%Y-%m-%d") + timedelta(days=1) - timedelta(seconds=1)
+        end = validate_date_format(end_date) + timedelta(days=1) - timedelta(seconds=1)
         query = query.filter(models.PurchaseHistory.transaction_date <= end)
 
     total_value = sum([p.transaction_amount for p in query.all()])
