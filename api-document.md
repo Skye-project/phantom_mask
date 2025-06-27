@@ -86,7 +86,9 @@ GET /pharmacies/mask_count
     - mask.name: 口罩名稱
     - mask.price: 口罩價錢
 - **範例**：
+    ```
     GET /pharmacies//mask_count?min_price=5&max_price=7&count=2&op=gt
+    ```
 - **回傳範例**：
     ```json
     [
@@ -113,6 +115,7 @@ GET /pharmacies/mask_count
     ```
 
 ---
+
 ##　4.Retrieve the top x users by total transaction amount of masks within a date range.
 ```
 GET /users/top_users 
@@ -128,7 +131,9 @@ GET /users/top_users
     - cash_balance: 用戶餘額
     - total_amount: 總花費
 - **範例**：
+    ```
     GET /users/top_users?top=2&start_date=2021-01-01&end_date=2021-01-20
+    ```
 - **回傳範例**：
     ```json
     [
@@ -161,7 +166,9 @@ GET /transactions/summary
     - total_transaction: 總數量
     - total_amount: 總金額
 - **範例**：
+    ```
     GET /purchase/summary?start_date=2021-01-01&end_date=2021-01-31
+    ```
 - **回傳範例**：
     ```json
     {
@@ -182,7 +189,9 @@ GET /search
     - name: 藥局或口罩的名字
     - relevance: 相關性
 - **範例**：
+    ```
     GET /search?keyword=c
+    ```
 - **回傳範例**：
     ```json
     [
