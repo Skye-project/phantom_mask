@@ -11,7 +11,6 @@ from app.utils import WEEKDAYS
 app = FastAPI()
 
 @app.get("/")
-
 def root():
     return {"message": "Phantom Mask API is live"}
 
@@ -22,7 +21,7 @@ def get_open_pharmacies(
     time: Optional[str] = Query(None, examples={"example": {"value": "10:00"}}),
     db: Session = Depends(get_db)
 ):
-    # Mon" → "Monday" 
+    # Monday" → "Mon" 
     if day:
         day = WEEKDAYS.get(day, day)
 
@@ -68,9 +67,8 @@ def list_masks_by_pharmacy_name(
 ):
     pharmacy = db.query(models.Pharmacy).filter(models.Pharmacy.name == pharmacy_name).first()
     
-    # If the pharmacy does not exist, return an empty list
     if not pharmacy:
-        return []
+        raise HTTPException(status_code=404, detail="Pharmacy not found")
 
     query = db.query(models.Mask).filter(models.Mask.pharmacy_id == pharmacy.id)
     
@@ -289,7 +287,6 @@ def purchase_masks(purchase: schemas.PurchaseRequest, db: Session = Depends(get_
     # update user's cash balance
     user.cash_balance -= total_cost
 
-    # 寫入資料庫
     db.commit()
 
     return schemas.PurchaseResponse(
