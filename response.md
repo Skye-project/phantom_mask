@@ -19,11 +19,26 @@
 ### A.2. API Document
 Please read the API documentation [here](api-document.md)
 
-### A.3. Import Data Command
-Please run the command.
+### A.3. Commands
+Please run these commands.
 
 ```bash
+# Create and activate a virtual environment
+python3 -m venv venv
+source venv/bin/activate # Linux/macOS
+
+# Windows：
+# venv\Scripts\activate
+
+# Install required packages
+pip install -r requirements.txt
+
+# Import data into the database（ETL）
 python3 -m app.etl
+
+# Run the FastAPI application
+uvicorn app.main:app --reload
+
 ```
 
 ## B. Bonus Information
