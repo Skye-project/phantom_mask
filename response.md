@@ -11,7 +11,7 @@
 - [o] The top x users by total transaction amount of masks within a date range.
   - Implemented at `GET /users/top_users?top={int}&start_date=YYYY-MM-DD&end_date=YYYY-MM-DD` API.
 - [o] The total number of masks and dollar value of transactions within a date range.
-  - Implemented at `GET /purchase/summary?start_date=YYYY-MM-DD&end_date=YYYY-MM-DD` API.
+  - Implemented at `GET /transactions/summary?start_date=YYYY-MM-DD&end_date=YYYY-MM-DD` API.
 - [o] Search for pharmacies or masks by name, ranked by relevance to the search term.
   - Implemented at `GET /search?keyword={str}` API.
 - [o] Process a user purchases a mask from a pharmacy, and handle all relevant data changes in an atomic transaction.
@@ -51,7 +51,7 @@ $ docker-compose up --build
 
 ### B.3. Demo Site Url
 
-The demo site is ready on [my AWS demo site](#demo-site-url); you can try any APIs on this demo site.
+The demo site is ready on [my demo site](https://phantom-mask-vpnk.onrender.com); you can try any APIs on this demo site.
 
 ## C. Other Information
 
