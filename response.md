@@ -24,20 +24,20 @@ Please run these commands.
 
 ```bash
 # Create and activate a virtual environment
-python3 -m venv venv
-source venv/bin/activate # Linux/macOS
+$ python3 -m venv venv
+$ source venv/bin/activate # Linux/macOS
 
 # Windows：
 # venv\Scripts\activate
 
 # Install required packages
-pip install -r requirements.txt
+$ pip install -r requirements.txt
 
 # Import data into the database（ETL）
-python3 -m app.etl
+$ python3 -m app.etl
 
 # Run the FastAPI application
-uvicorn app.main:app --reload
+$ uvicorn app.main:app --reload
 
 ```
 
@@ -49,10 +49,10 @@ Make sure the database is initialized before running tests.
 You can run the test script and check the test coverage report by using the command below:
 
 ```bash
-coverage run --source=app -m pytest
-coverage report 
-coverage html                  # Output htmlcov visualization page
-open htmlcov/index.html 
+$ coverage run --source=app -m pytest
+$ coverage report 
+$ coverage html                  # Output htmlcov visualization page
+$ open htmlcov/index.html 
 ```
 
 ### B.2. Dockerized
