@@ -26,9 +26,6 @@ Please run these two script commands.
 pip install -r requirements.txt
 
 python3 -m app.etl  # to migrate the data into the database.
-
-uvicorn app.main:app --reload
-
 ```
 
 ## B. Bonus Information
@@ -46,7 +43,7 @@ open htmlcov/index.html
 ```
 
 ### B.2. Dockerized
-Please check my [Dockerfile](aDockerfile) / [docker-compose.yml](docker-compose.yml).
+Please check my [Dockerfile](Dockerfile) / [docker-compose.yml](docker-compose.yml).
 
 On the local machine, please follow the commands below to build it.
 
