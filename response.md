@@ -19,20 +19,18 @@
 ### A.2. API Document
 Please read the API documentation [here](api-document.md)
 
-### A.3. Import Data Commands
-Please run these two script commands.
+### A.3. Import Data Command
+Please run the command.
 
 ```bash
-pip install -r requirements.txt
-
-python3 -m app.etl  # to migrate the data into the database.
+python3 -m app.etl
 ```
 
 ## B. Bonus Information
 
 >  If you completed the bonus requirements, please fill in your task below.
 ### B.1. Test Coverage Report
-
+Make sure the database is initialized before running tests.
 You can run the test script and check the test coverage report by using the command below:
 
 ```bash
