@@ -87,7 +87,7 @@ GET /pharmacies/mask_count
     - mask.price: 口罩價錢
 - **範例**：
     ```
-    GET /pharmacies//mask_count?min_price=5&max_price=7&count=2&op=gt
+    GET /pharmacies/mask_count?min_price=5&max_price=7&count=2&op=gt
     ```
 - **回傳範例**：
     ```json
@@ -167,7 +167,7 @@ GET /transactions/summary
     - total_amount: 總金額
 - **範例**：
     ```
-    GET /purchase/summary?start_date=2021-01-01&end_date=2021-01-31
+    GET /transactions/summary?start_date=2021-01-01&end_date=2021-01-31
     ```
 - **回傳範例**：
     ```json
