@@ -40,7 +40,7 @@ GET /pharmacies/open
 ---
 ## 2.List all masks sold by a given pharmacy, sorted by mask name or price.
 ```
-GET /pharmacy/{pharmacy_name}/masks 
+GET /pharmacies/{pharmacy_name}/masks 
 ```
 - **說明**：查詢指定藥局的所有口罩，可依名稱或價格排序，並指定升/降冪
 - **參數**：
@@ -52,7 +52,7 @@ GET /pharmacy/{pharmacy_name}/masks
     - price: 口罩價錢
 - **範例**：
     ```
-    GET /pharmacy/Carepoint/masks?sort_by=name&order=asc
+    GET /pharmacies/Carepoint/masks?sort_by=name&order=asc
     ```
 - **回傳範例**：
     ```json
