@@ -207,11 +207,12 @@ POST /purchase
 - **說明**：處理用戶購買口罩的過程，可同時從多個藥局購買
 - **輸入**：
     - user_id: 用戶ID
-    - items: 陣列，每個元素 { pharmacy_id, mask_id, quantity }
+    - purchases: 購買資訊陣列，每個元素 { pharmacy_id, mask_id, quantity }
 - **回傳**：
-    - success: 是否成功
+    - message: 是否成功
     - total_cost: 本次交易總金額
-    - purchases: 每一項商品購買明細
+    - remaining_balance: 餘額
+    - details: 每一項商品購買明細
 - **範例輸入**：
     ```json
     {
